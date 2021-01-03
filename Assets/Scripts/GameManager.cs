@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public float gravity = -20.0f;
-    public float maximumDownwardVelocity = -5f;
+    public float maximumUpVelocity = 10.0f;
+    public float maximumDownVelocity = -5.0f;
+    public float jumpForce = 100.0f;
 
     public GameObject playerStart;
     public GameObject playerEntity;
@@ -26,8 +28,7 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space))
         {
-            //playerPhysics.velocity = (new Vector3(0, 10, 0));
-            playerPhysics.AddForce(new Vector3(0, 100, 0));
+            playerPhysics.AddForce(new Vector3(0, jumpForce, 0));
         }
 
         
@@ -35,9 +36,9 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerPhysics.velocity.y < maximumDownwardVelocity)
-            playerPhysics.velocity = (new Vector3(0, maximumDownwardVelocity, 0));
-        if (playerPhysics.velocity.y > 10)
-            playerPhysics.velocity = (new Vector3(0, 10, 0));
+        if (playerPhysics.velocity.y < maximumDownVelocity)
+            playerPhysics.velocity = (new Vector3(0, maximumDownVelocity, 0));
+        if (playerPhysics.velocity.y > maximumUpVelocity)
+            playerPhysics.velocity = (new Vector3(0, maximumUpVelocity, 0));
     }
 }
