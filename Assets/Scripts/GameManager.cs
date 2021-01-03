@@ -12,15 +12,29 @@ public class GameManager : MonoBehaviour
     public GameObject playerStart;
     public GameObject playerEntity;
 
+    public GameObject pipeGeneratorOrigin;
+    public GameObject pipeEntity;
+
     private GameObject player;
     private Rigidbody playerPhysics;
+
+    public float respawnTime = 1.0f;
+    private float lastRespawnInMS = 0f;
+
+    private PipeGenerator pipeGenerator;
 
     // Start is called before the first frame update
     void Start()
     {
+        pipeGenerator = gameObject.AddComponent<PipeGenerator>();
+        pipeGenerator.origin = pipeGeneratorOrigin.transform;
+        pipeGenerator.obstacle = pipeEntity;
+
         player = Instantiate(playerEntity, playerStart.transform);
         playerPhysics = player.GetComponent<Rigidbody>();
         Physics.gravity = new Vector3(0, gravity, 0);
+
+        pipeGenerator.SpawnPipe();
     }
 
     // Update is called once per frame
@@ -31,14 +45,24 @@ public class GameManager : MonoBehaviour
             playerPhysics.AddForce(new Vector3(0, jumpForce, 0));
         }
 
-        
+        handlePipes();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (playerPhysics.velocity.y < maximumDownVelocity)
             playerPhysics.velocity = (new Vector3(0, maximumDownVelocity, 0));
         if (playerPhysics.velocity.y > maximumUpVelocity)
             playerPhysics.velocity = (new Vector3(0, maximumUpVelocity, 0));
+    }
+
+    void handlePipes()
+    {
+        lastRespawnInMS += Time.deltaTime;
+        if (lastRespawnInMS < respawnTime)
+            return;
+
+        pipeGenerator.SpawnPipe();
+        lastRespawnInMS = 0f;
     }
 }

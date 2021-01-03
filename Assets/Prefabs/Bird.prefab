@@ -105,7 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2184451816172189375}
   - component: {fileID: 2057919235741513698}
-  - component: {fileID: 5654382115717862678}
+  - component: {fileID: 7088266717657545003}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Untagged
@@ -144,7 +144,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5654382115717862678
+--- !u!114 &7088266717657545003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
