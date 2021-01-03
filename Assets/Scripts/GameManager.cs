@@ -7,12 +7,16 @@ public class GameManager : MonoBehaviour
     public float gravity = -20.0f;
     public float maximumDownwardVelocity = -5f;
 
-    public GameObject player;
+    public GameObject playerStart;
+    public GameObject playerEntity;
+
+    private GameObject player;
     private Rigidbody playerPhysics;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = Instantiate(playerEntity, playerStart.transform);
         playerPhysics = player.GetComponent<Rigidbody>();
         Physics.gravity = new Vector3(0, gravity, 0);
     }
